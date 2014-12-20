@@ -6,7 +6,7 @@ module.exports = {
 		title: 'meanJS - Development Environment'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
+		clientID: process.env.FACEBOOK_ID || 'APP_ID', // replace APP_ID with the real FB ID
 		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
 		callbackURL: '/auth/facebook/callback'
 	},
