@@ -20,6 +20,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		};
 
 		$scope.signin = function() {
+			// pass credentials to /auth/signin
+			// if success
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
@@ -27,6 +29,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// And redirect to the index page
 				$location.path('/');
 			}).error(function(response) {
+				// not success
 				$scope.error = response.message;
 			});
 		};
