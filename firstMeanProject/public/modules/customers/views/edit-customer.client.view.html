@@ -1,10 +1,10 @@
 <section data-ng-controller="CustomersUpdateController as customerUpCtrl">
 
     <div class="modal-header">
-        <h3 class="modal-title">Edit Customer</h3>
+        <h3 class="modal-title">Update: {{customer.firstName}} {{customer.surname}}</h3>
     </div>
     <div class="modal-body">
-        <form class="" data-ng-submit="update()" novalidate>
+        <form name="updateCustomerForm">
             <fieldset>
                 <div class="row">
                     <div class="form-group">
@@ -16,7 +16,7 @@
                     </div>
                     <div class='col-sm-6 text-center'>
                         <i class="glyphicon glyphicon-user cust-profile"
-                           ng-class="{'text-primary': referred, 'text-danger': !referred}"></i>
+                           ng-class="{'text-primary': customer.referred, 'text-pink': !customer.referred}"></i>
                     </div>
                     <div class='col-sm-6'>
                         <div class="form-group">
@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label class="control-label" for="surname">Surname</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="customer.surname" id="surname" class="form-control">
+                                <input type="text" data-ng-model="customer.surname" id="surname" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -89,22 +89,9 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-success btn-lg" ng-click="customerUpCtrl.update(customer); ok(updateCustomerForm.$valid)" ng-disabled="updateCustomerForm.$invalid">Update & Close</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Close</button>
     </div>
 
-
-
-
-    <div class='col-sm-6'>
-        <div class="form-group">
-            <button type="submit" class="btn btn-lg btn-success">
-                Save & Close
-            </button>
-        </div>
-    </div>
-    <div class="form-group">
-    <input type="submit" value="Update" class="btn btn-default">
-    </div>
 </section>
 

@@ -1,9 +1,10 @@
-<section data-ng-controller="CustomersController">
-    <div class="page-header">
-        <h1>New Customer</h1>
+<section data-ng-controller="CustomersCreateController as customerCtrl">
+
+    <div class="modal-header">
+        <h3 class="modal-title">New Customer</h3>
     </div>
-    <div class="col-md-12">
-        <form class="" data-ng-submit="create()" novalidate>
+    <div class="modal-body">
+        <form name="createCustomerForm">
             <fieldset>
                 <div class="row">
                     <div class="form-group">
@@ -83,15 +84,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class='col-sm-6'>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-lg btn-success">
-                                Save & Close
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </fieldset>
         </form>
     </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-lg" ng-click="customerCtrl.create(); ok(createCustomerForm.$valid)" ng-disabled="createCustomerForm.$invalid">Save & Close</button>
+        <button class="btn btn-warning btn-lg" ng-click="cancel()">Close</button>
+    </div>
+
 </section>
