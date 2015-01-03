@@ -30,7 +30,7 @@ customersApp.controller('CustomersController', ['$scope', '$stateParams', 'Authe
 					};
 				},
 
-				size: size,
+				size: size
 			});
 
 			modalInstance.result.then(function (selectedItem) {
@@ -72,14 +72,36 @@ customersApp.controller('CustomersController', ['$scope', '$stateParams', 'Authe
 			}, function () {
 				$log.info('Modal dismissed at: ' + new Date());
 			});
+
+
+
+
+
+			// Remove existing Customer
+			this.remove = function(customer) {
+				if ( customer ) {
+					customer.$remove();
+
+					for (var i in this.customers) {
+						if (this.customers [i] === customer) {
+							this.customers.splice(i, 1);
+						}
+					}
+				} else {
+					$scope.customer.$remove(function() {
+					});
+				}
+			};
+
+
 		};
 	}
 ]);
 
 
 // Customers controller
-customersApp.controller('CustomersCreateController', ['$scope', 'Customers',
-	function($scope, Customers) {
+customersApp.controller('CustomersCreateController', ['$scope', 'Customers', 'Notify',
+	function($scope, Customers, Notify) {
 
 		// Create new Customer
 		this.create = function() {
@@ -109,6 +131,9 @@ customersApp.controller('CustomersCreateController', ['$scope', 'Customers',
 				$scope.phone = '';
 				$scope.referred = '';
 				$scope.channel = '';
+
+				Notify.sendMsg('NewCustomer', {'id' : response._id});
+
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -135,38 +160,24 @@ customersApp.controller('CustomersUpdateController', ['$scope', 'Customers',
 	}
 ]);
 
-customersApp.directive('customerList', [function() {
+customersApp.directive('customerList', ['Customers', 'Notify', function(Customers, Notify) {
 	return {
 		restrict: 'E',
 		transclude: true,
 		templateUrl: 'modules/customers/views/customer-list-template.html',
 		link: function(scope, element, attrs) {
 
+			// When a new customer is added, update the customer list
+
+			Notify.getMsg('NewCustomer', function(event, data) {
+
+				scope.customersCtrl.customers = Customers.query();
+			});
 		}
 	};
 }]);
         //
         //
-
-        //
-		//// Remove existing Customer
-		//$scope.remove = function(customer) {
-		//	if ( customer ) {
-		//		customer.$remove();
-        //
-		//		for (var i in $scope.customers) {
-		//			if ($scope.customers [i] === customer) {
-		//				$scope.customers.splice(i, 1);
-		//			}
-		//		}
-		//	} else {
-		//		$scope.customer.$remove(function() {
-		//			$location.path('customers');
-		//		});
-		//	}
-		//};
-        //
-
         //
         //
 		//// Find existing Customer
