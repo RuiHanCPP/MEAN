@@ -70,7 +70,9 @@
                         <div class="form-group">
                             <label class="control-label" for="channel">Channel</label>
                             <div class="controls">
-                                <input type="text" data-ng-model="customer.channel" id="channel" class="form-control">
+                                <select data-ng-model="customer.channel" id="channel" class="form-control" ng-options="channel.item for channel in channleOptions">
+                                    <option value="">-- choose channel --</option>
+                                </select>
                             </div>
                         </div>
                     </div>
