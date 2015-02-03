@@ -4,6 +4,9 @@ MAINTAINER Matthias Luebken, matthias@catalyst-zero.com
 
 WORKDIR /home/mean
 
+RUN git config --global url."https://".insteadOf git://
+
+
 # Install Mean.JS Prerequisites
 RUN npm install -g grunt-cli
 RUN npm install -g bower
